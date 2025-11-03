@@ -1,0 +1,362 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArtBook</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ====== Meniu de încărcare (secțiune nouă) ====== */
+    .share-section {
+      background-color: #734781;
+      text-align: center;
+      padding: 40px 0;
+    }
+
+    .share-section h2 {
+      color: white;
+      margin-top: 35px;
+      margin-bottom: 20px;
+      font-family: "Segoe UI", sans-serif;
+      font-size: 28px;
+    }
+
+    .upload-container {
+      background: #f7f6fc;
+      width: 60%;
+      max-width: 600px;
+      margin: 0 auto;
+      border-radius: 15px;
+      padding: 40px 0;
+      position: relative;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .plus-button {
+      background-color: #441851;
+      color: white;
+      font-size: 40px;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      cursor: pointer;
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: all 0.3s;
+    }
+
+    .plus-button:hover {
+      background-color: #582069;
+      transform: translateX(-50%) scale(1.05);
+    }
+
+    /* ====== Modal pentru încărcare (fixuri pentru previzualizare mare) ====== */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .modal-content {
+      background-color: #d4b7f1;
+      width: 100%;
+      max-width: 540px;
+      max-height: 80vh;           /* limitează înălțimea modalului */
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      display: flex;
+      flex-direction: column;
+      overflow: auto;            /* face conținutul derulabil dacă e prea mare */
+      padding: 18px;
+      box-sizing: border-box;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .modal-header h3 {
+      margin: 0;
+    }
+
+    #preview {
+      width: 100%;
+      max-height: 55vh;          /* limitează înălțimea imaginii */
+      object-fit: contain;       /* păstrează proporțiile fără a tăia */
+      border-radius: 8px;
+      margin-top: 12px;
+      display: block;
+    }
+
+    .close-upload {
+      color: #333;
+      font-size: 20px;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+    }
+
+    /* Acțiuni lipite jos — rămân vizibile când conținutul este derulabil */
+    .upload-actions {
+      position: sticky;
+      bottom: 0;
+      background: linear-gradient(180deg, rgba(212,183,241,0) 0%, rgba(212,183,241,0.85) 85%); /* mic gradient pentru tranziție */
+      padding-top: 8px;
+      padding-bottom: 8px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .upload-btn {
+      background-color: #a8a6e3;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .upload-btn:hover {
+      background-color: #8f8dd1;
+    }
+
+    /* Stil pentru input fișier (opțional, arată mai bine) */
+    .file-input {
+      display: inline-block;
+      padding: 8px 12px;
+      background: rgba(255,255,255,0.9);
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 6px;
+    }
+
+    .file-input input[type="file"] {
+      display: none;
+    }
+
+    /* stiluri mici pentru gallery */
+    .trending-images {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 20px;
+      justify-content: center;
+    }
+
+    .trending-images img {
+      max-width: 220px;
+      height: auto;
+      border-radius: 8px;
+      cursor: pointer;
+      object-fit: cover;
+    }
+
+    /* imaginea încărcată poate avea propriul stil */
+    .uploaded-img {
+      border: 3px solid rgba(255,255,255,0.15);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ====== Bara de navigare ====== -->
+  <nav class="main-nav">
+    <div class="logo">ArtBook</div>
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Search artwork...">
+    </div>
+    <ul class="nav-links">
+      <li><a href="trending.html">Trending</a></li>
+      <li><a href="popular.html">Popular</a></li>
+      <li><a href="latest.html" class="active">Latest</a></li>
+      <li><a href="creators.html">Creators</a></li>
+    </ul>
+    <a href="pagina.html" class="circle-btn"></a>
+  </nav>
+
+  <!-- ====== Meniul de încărcare sub bara ====== -->
+  <section class="share-section">
+    <h2>Împărtășește cu lucrările tale</h2>
+    <div class="upload-container">
+      <button class="plus-button" id="openUpload">+</button>
+    </div>
+  </section>
+
+  <!-- ====== Secțiunea cu imagini ====== -->
+  <section class="trending-images" id="imageGallery">
+    <img src="Art14.jpg" alt="Artwork 14" class="img14">
+    <img src="Art16.jpg" alt="Artwork 16" class="img16">
+    <img src="Art17.jpg" alt="Artwork 17" class="img17">
+    <img src="Art18.jpg" alt="Artwork 18" class="img18">
+    <img src="Art19.jpg" alt="Artwork 19" class="img19">
+  </section>
+
+  <!-- ====== Fereastra de comentarii ====== -->
+  <div class="comment-modal" id="commentModal">
+    <div class="comment-container">
+      <span class="close-btn" id="closeModal">&times;</span>
+
+      <div class="comment-left">
+        <img id="selectedImage" src="" alt="Selected artwork">
+      </div>
+
+      <div class="comment-right">
+        <h3>Comentarii</h3>
+        <div class="comments-list" id="commentsList"></div>
+
+        <textarea id="commentInput" placeholder="Scrie un comentariu..." rows="4"></textarea>
+        <button class="submit-comment" id="submitComment">Trimite</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== Fereastra de încărcare imagine ====== -->
+  <div id="uploadModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="uploadTitle">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="uploadTitle">Alege o imagine pentru a o încărca</h3>
+        <button class="close-upload" id="closeUpload" aria-label="Close">&times;</button>
+      </div>
+
+      <!-- buton personalizat pentru input file -->
+      <label class="file-input" for="fileInput">Alege fișier
+        <input type="file" id="fileInput" accept="image/*">
+      </label>
+
+      <img id="preview" src="" alt="Preview">
+
+      <!-- acțiuni lipite jos -->
+      <div class="upload-actions">
+        <button class="upload-btn" id="uploadBtn">Încarcă imaginea</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== Scripturi ====== -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      /* ====== BARA DE CĂUTARE ====== */
+      const searchInput = document.getElementById('searchInput');
+      const imageGallery = document.getElementById('imageGallery');
+
+      searchInput.addEventListener('keyup', () => {
+        const filter = searchInput.value.toLowerCase();
+        const imgs = imageGallery.querySelectorAll('img');
+        imgs.forEach(img => {
+          const name = (img.alt || img.src).toLowerCase();
+          img.style.display = name.includes(filter) ? 'block' : 'none';
+        });
+      });
+
+      /* ====== SISTEM DE COMENTARII ====== */
+      const modalComment = document.getElementById('commentModal');
+      const selectedImage = document.getElementById('selectedImage');
+      const commentsList = document.getElementById('commentsList');
+      const commentInput = document.getElementById('commentInput');
+      const submitComment = document.getElementById('submitComment');
+      const closeModal = document.getElementById('closeModal');
+      let currentImageSrc = '';
+      let comments = {};
+
+      imageGallery.addEventListener('click', (e) => {
+        if (e.target.tagName === 'IMG') {
+          currentImageSrc = e.target.src;
+          selectedImage.src = currentImageSrc;
+          modalComment.style.display = 'flex';
+          loadComments();
+        }
+      });
+
+      closeModal.addEventListener('click', () => modalComment.style.display = 'none');
+      window.addEventListener('click', (e) => {
+        if (e.target === modalComment) modalComment.style.display = 'none';
+      });
+
+      submitComment.addEventListener('click', () => {
+        const text = commentInput.value.trim();
+        if (text === '') return;
+        if (!comments[currentImageSrc]) comments[currentImageSrc] = [];
+        comments[currentImageSrc].push(text);
+        commentInput.value = '';
+        loadComments();
+      });
+
+      function loadComments() {
+        commentsList.innerHTML = '';
+        if (comments[currentImageSrc]) {
+          comments[currentImageSrc].forEach(c => {
+            const div = document.createElement('div');
+            div.className = 'comment';
+            div.textContent = c;
+            commentsList.appendChild(div);
+          });
+        }
+      }
+
+      /* ====== FEREASTRA DE ÎNCĂRCARE ====== */
+      const openUpload = document.getElementById('openUpload');
+      const uploadModal = document.getElementById('uploadModal');
+      const closeUpload = document.getElementById('closeUpload');
+      const fileInput = document.getElementById('fileInput');
+      const preview = document.getElementById('preview');
+      let uploadedImageSrc = '';
+
+      openUpload.onclick = () => uploadModal.style.display = 'flex';
+      closeUpload.onclick = () => uploadModal.style.display = 'none';
+      window.addEventListener('click', (event) => {
+        if (event.target === uploadModal) uploadModal.style.display = 'none';
+      });
+
+      // Previzualizare imagine (cu limitare)
+      fileInput.addEventListener("change", (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = e => {
+          preview.src = e.target.result;
+          uploadedImageSrc = e.target.result;
+          // asigură-te că scroll-ul revine în sus ca utilizatorul să vadă previzualizarea
+          uploadModal.querySelector('.modal-content').scrollTop = 0;
+        };
+        reader.readAsDataURL(file);
+      });
+
+      // Adaugă imaginea pe pagină (prima în gallery)
+      document.getElementById("uploadBtn").addEventListener("click", () => {
+        if (uploadedImageSrc) {
+          const newImg = document.createElement("img");
+          newImg.src = uploadedImageSrc;
+          newImg.alt = "Lucrare nouă";
+          newImg.className = "uploaded-img";
+          imageGallery.insertBefore(newImg, imageGallery.firstChild);
+          uploadModal.style.display = "none";
+          fileInput.value = "";
+          preview.src = "";
+          uploadedImageSrc = "";
+        } else {
+          alert("Selectează o imagine înainte de a încărca!");
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

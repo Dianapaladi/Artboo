@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArtBook - Creators</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ====== Panou informativ sub bara de navigare ====== */
+    .info-panel {
+      display: none;
+      background: #dcd5f5; /* pastel violet deschis */
+      border-radius: 25px;
+      margin: 30px auto;
+      width: 90%;
+      max-width: 1000px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+      overflow: hidden;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .info-content {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      padding: 25px;
+    }
+
+    .info-content img {
+      width: 260px;
+      height: auto;
+      border-radius: 20px;
+      object-fit: cover;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .info-text {
+      flex: 1;
+    }
+
+    .info-text h3 {
+      color: #82308f; /* violet închis */
+      margin-bottom: 10px;
+      font-size: 26px;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .info-text p {
+      color: #4a3b58;
+      font-size: 17px;
+      line-height: 1.5;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .close-info {
+      float: right;
+      font-size: 28px;
+      color: #82308f;
+      margin: 10px 20px 0 0;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .close-info:hover {
+      color: #5b1b69;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ====== Imaginile - același stil ca în celelalte pagini ====== */
+    .creators-images {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 25px;
+      margin: 60px auto;
+      width: 90%;
+    }
+
+    .creators-images img {
+      width: 300px;
+      height: auto;
+      object-fit: cover;
+      border-radius: 20px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .creators-images img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ======= Bara de navigare ======= -->
+  <nav class="main-nav">
+    <div class="logo">ArtBook</div>
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Search artwork...">
+    </div>
+    <ul class="nav-links">
+      <li><a href="trending.html">Trending</a></li>
+      <li><a href="popular.html">Popular</a></li>
+      <li><a href="latest.html">Latest</a></li>
+      <li><a href="creators.html" class="active">Creators</a></li>
+    </ul>
+    <a href="pagina.html" class="circle-btn"></a>
+  </nav>
+
+  <!-- ======= Panou cu detalii ======= -->
+  <div class="info-panel" id="infoPanel">
+    <span class="close-info" id="closeInfo">&times;</span>
+    <div class="info-content">
+      <img id="infoImage" src="" alt="Artwork">
+      <div class="info-text">
+        <h3 id="artTitle">Titlul lucrării</h3>
+        <p id="artDescription">Descrierea lucrării va apărea aici.</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="creators-images">
+    <img src="Vincent-van-Gogh.jpg" alt="Artwork 20" class="img20">
+    <img src="Frida-Kahlo.jpg" alt="Artwork 21" class="img21">
+    <img src="Freud-Lucian.jpg" alt="Artwork 22" class="img22">
+    <img src="Paula-Modersohn.jpg" alt="Artwork 23" class="img23">
+
+  </section>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const images = document.querySelectorAll('.creators-images img');
+      const infoPanel = document.getElementById('infoPanel');
+      const infoImage = document.getElementById('infoImage');
+      const artTitle = document.getElementById('artTitle');
+      const artDescription = document.getElementById('artDescription');
+      const closeInfo = document.getElementById('closeInfo');
+
+      const artworksInfo = {
+        "Vincent-van-Gogh.jpg": {
+          title: "Vincent van Gogh",
+          description: "Pictor post-impresionist olandez, cunoscut pentru culorile intense și emoția din lucrările sale. A transformat durerea interioară în artă plină de viață și sensibilitate."
+        },
+        "Frida-Kahlo.jpg": {
+          title: "Frida Kahlo",
+          description: "Pictoriță mexicană, cunoscută pentru autoportretele sale profunde și simbolice. Lucrările sale explorează identitatea, durerea și natura umană."
+        },
+        "Freud-Lucian.jpg": {
+          title: "Lucian Freud",
+          description: "Pictor britanic, cunoscut pentru portretele sale intense și explorarea psihologiei umane. Lucrările sale adesea dezvăluie vulnerabilitatea subiecților."
+        },
+        "Paula-Modersohn.jpg": {
+          title: "Paula Modersohn-Becker",
+          description: "Pictoriță germană, una dintre primele femei care a pictat nuduri feminine. Lucrările sale sunt caracterizate de simplitate și o paletă de culori calde."
+        },
+        "Art24.jpg": {
+          title: "Umbre și Lumină",
+          description: "Contrastul dintre întuneric și luminozitate dă viață acestei lucrări pline de expresie și echilibru."
+        },
+        "Art25.jpg": {
+          title: "Armonia Vântului",
+          description: "Culorile se mișcă precum aerul — libere, dansând printre gânduri și emoții neexprimate."
+        }
+      };
+
+      images.forEach(img => {
+        img.addEventListener('click', () => {
+          const src = img.getAttribute('src');
+          infoImage.src = src;
+
+          const info = artworksInfo[src.split('/').pop()];
+          artTitle.textContent = info ? info.title : "Lucrare necunoscută";
+          artDescription.textContent = info ? info.description : "Descriere indisponibilă.";
+
+          infoPanel.style.display = 'block';
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      });
+
+      closeInfo.addEventListener('click', () => {
+        infoPanel.style.display = 'none';
+      });
+    });
+  </script>
+
+</body>
+</html>
