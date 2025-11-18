@@ -7,20 +7,23 @@
   <title>Trending - ArtBook</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+
+<body data-theme="light">
 
   <nav class="main-nav">
     <div class="logo">ArtBook</div>
-  <div class="search-container">
-    <input type="text" id="searchInput" placeholder="Search artwork...">
-  </div>
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Search artwork...">
+    </div>
     <ul class="nav-links">
-      <li><a href="trending.html">Trending</a></li>
+      <li><a href="index.html">Trending</a></li>
       <li><a href="popular.html" class="active">Popular</a></li>
       <li><a href="latest.html">Latest</a></li>
       <li><a href="creators.html">Creators</a></li>
     </ul>
-      <a href="pagina.html" class="circle-btn"></a>
+
+    <!-- Butonul pentru schimbarea temei -->
+    <a class="circle-btn"></a>
   </nav>
 
   <section class="trending-images">
@@ -79,7 +82,6 @@
       let currentImageSrc = '';
       let comments = {};
 
-      // Deschide fereastra de comentarii
       images.forEach(img => {
         img.addEventListener('click', () => {
           currentImageSrc = img.src;
@@ -89,17 +91,14 @@
         });
       });
 
-      // Închide fereastra
       closeModal.addEventListener('click', () => {
         modal.style.display = 'none';
       });
 
-      // Închide la click în afara ferestrei
       window.addEventListener('click', (e) => {
         if (e.target === modal) modal.style.display = 'none';
       });
 
-      // Trimite comentariu
       submitComment.addEventListener('click', () => {
         const text = commentInput.value.trim();
         if (text === '') return;
@@ -111,7 +110,6 @@
         loadComments();
       });
 
-      // Încarcă comentariile
       function loadComments() {
         commentsList.innerHTML = '';
         if (comments[currentImageSrc]) {
@@ -123,6 +121,31 @@
           });
         }
       }
+
+      /* ====================================== */
+      /* =========== DARK/LIGHT THEME ========= */
+      /* ====================================== */
+
+      const themeBtn = document.querySelector('.circle-btn');
+
+      themeBtn.addEventListener('click', () => {
+        const body = document.body;
+
+        if (body.getAttribute("data-theme") === "light") {
+          body.setAttribute("data-theme", "dark");
+          localStorage.setItem("theme", "dark");
+        } else {
+          body.setAttribute("data-theme", "light");
+          localStorage.setItem("theme", "light");
+        }
+      });
+
+      // Aplicăm tema salvată anterior
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme) {
+        document.body.setAttribute("data-theme", savedTheme);
+      }
+
     });
   </script>
 

@@ -111,12 +111,12 @@
       <input type="text" id="searchInput" placeholder="Search artwork..." />
     </div>
     <ul class="nav-links">
-      <li><a href="trending.html">Trending</a></li>
+      <li><a href="index.html">Trending</a></li>
       <li><a href="popular.html">Popular</a></li>
       <li><a href="latest.html">Latest</a></li>
       <li><a href="creators.html" class="active">Creators</a></li>
     </ul>
-    <a href="pagina.html" class="circle-btn"></a>
+    <a class="circle-btn"></a>
   </nav>
 
   <!-- ======= Panou cu detalii ======= -->
@@ -190,6 +190,31 @@
       closeInfo.addEventListener("click", () => {
         infoPanel.style.display = "none";
       });
+
+      /* ====================================== */
+      /* =========== DARK/LIGHT THEME ========= */
+      /* ====================================== */
+
+      const themeBtn = document.querySelector('.circle-btn');
+
+      themeBtn.addEventListener('click', () => {
+        const body = document.body;
+
+        if (body.getAttribute("data-theme") === "light") {
+          body.setAttribute("data-theme", "dark");
+          localStorage.setItem("theme", "dark");
+        } else {
+          body.setAttribute("data-theme", "light");
+          localStorage.setItem("theme", "light");
+        }
+      });
+
+      // Aplicăm tema salvată anterior
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme) {
+        document.body.setAttribute("data-theme", savedTheme);
+      }
+
     });
   </script>
 </body>
