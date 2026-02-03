@@ -72,9 +72,6 @@ body {
   cursor: pointer;
 }
 
-
-
-
 /* ====== NAV LINKS ====== */
 .nav-links {
   list-style: none;
@@ -117,7 +114,7 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
-  margin-top: 160px; /* spațiu sub bara + linkuri */
+  margin-top: 100px; /* spațiu sub bara + linkuri */
 }
 
 .trending-images img {
@@ -248,23 +245,23 @@ body {
 }
 /* ====== THEME: DARK ====== */
 body[data-theme="dark"] {
-  background-color: #1e1e1e;
-  color: white;
+  background-color: #000000;
+  color: rgb(255, 255, 255);
 }
 
 /* navbar */
 body[data-theme="dark"] .main-nav {
-  background-color: #000;
+  background-color: #000000;
 }
 
 /* logo */
 body[data-theme="dark"] .logo {
-  color: #fff;
+  color: #ffffff;
 }
 
 /* butonul cerc */
 body[data-theme="dark"] .circle-btn {
-  background-color: #333;
+  background-color: #282727;
 }
 
 /* linkurile */
@@ -336,4 +333,47 @@ body[data-theme="dark"] .submit-comment {
 
 body[data-theme="dark"] .submit-comment:hover {
   background-color: #777;
+}
+
+/* ===== THEME TOGGLE BUTTON ===== */
+.circle-btn {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #5b3767;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* ICONUL */
+.circle-btn::before {
+  content: "☀";
+  font-size: 35px;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f1c40f;
+  transform: translateY(-2px);
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+/* HOVER */
+.circle-btn:hover {
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* ===== DARK MODE ===== */
+body[data-theme="dark"] .circle-btn {
+  background-color: #333;
+}
+
+body[data-theme="dark"] .circle-btn::before {
+  content: "🌙";
+  color: #f5f3ce;
 }
