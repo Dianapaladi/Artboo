@@ -565,13 +565,7 @@
   </section>
 
   <!-- ====== Secțiunea cu imagini ====== -->
-  <section class="trending-images" id="imageGallery">
-    <img src="Imag/Art14.jpg" alt="Artwork 14" class="img14">
-    <img src="Imag/Art16.jpg" alt="Artwork 16" class="img16">
-    <img src="Imag/Art17.jpg" alt="Artwork 17" class="img17">
-    <img src="Imag/Art18.jpg" alt="Artwork 18" class="img18">
-    <img src="Imag/Art19.jpg" alt="Artwork 19" class="img19">
-  </section>
+<section class="trending-images" id="trendingImages" data-page="latest"></section>
 
   <!-- ====== Fereastra de comentarii ====== -->
   <div class="comment-modal" id="commentModal">
@@ -612,130 +606,6 @@
     </div>
   </div>
 
-  <!-- ====== Scripturi ====== -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      /* ====== BARA DE CĂUTARE ====== */
-      const searchInput = document.getElementById('searchInput');
-      const imageGallery = document.getElementById('imageGallery');
-
-      searchInput.addEventListener('keyup', () => {
-        const filter = searchInput.value.toLowerCase();
-        const imgs = imageGallery.querySelectorAll('img');
-        imgs.forEach(img => {
-          const name = (img.alt || img.src).toLowerCase();
-          img.style.display = name.includes(filter) ? 'block' : 'none';
-        });
-      });
-
-      /* ====== SISTEM DE COMENTARII ====== */
-      const modalComment = document.getElementById('commentModal');
-      const selectedImage = document.getElementById('selectedImage');
-      const commentsList = document.getElementById('commentsList');
-      const commentInput = document.getElementById('commentInput');
-      const submitComment = document.getElementById('submitComment');
-      const closeModal = document.getElementById('closeModal');
-      let currentImageSrc = '';
-      let comments = {};
-
-      imageGallery.addEventListener('click', (e) => {
-        if (e.target.tagName === 'IMG') {
-          currentImageSrc = e.target.src;
-          selectedImage.src = currentImageSrc;
-          modalComment.style.display = 'flex';
-          loadComments();
-        }
-      });
-
-      closeModal.addEventListener('click', () => modalComment.style.display = 'none');
-      window.addEventListener('click', (e) => {
-        if (e.target === modalComment) modalComment.style.display = 'none';
-      });
-
-      submitComment.addEventListener('click', () => {
-        const text = commentInput.value.trim();
-        if (text === '') return;
-        if (!comments[currentImageSrc]) comments[currentImageSrc] = [];
-        comments[currentImageSrc].push(text);
-        commentInput.value = '';
-        loadComments();
-      });
-
-      function loadComments() {
-        commentsList.innerHTML = '';
-        if (comments[currentImageSrc]) {
-          comments[currentImageSrc].forEach(c => {
-            const div = document.createElement('div');
-            div.className = 'comment';
-            div.textContent = c;
-            commentsList.appendChild(div);
-          });
-        }
-      }
-
-      /* ====== FEREASTRA DE ÎNCĂRCARE ====== */
-      const openUpload = document.getElementById('openUpload');
-      const uploadModal = document.getElementById('uploadModal');
-      const closeUpload = document.getElementById('closeUpload');
-      const fileInput = document.getElementById('fileInput');
-      const preview = document.getElementById('preview');
-      let uploadedImageSrc = '';
-
-      openUpload.onclick = () => uploadModal.style.display = 'flex';
-      closeUpload.onclick = () => uploadModal.style.display = 'none';
-      window.addEventListener('click', (event) => {
-        if (event.target === uploadModal) uploadModal.style.display = 'none';
-      });
-
-      fileInput.addEventListener("change", (event) => {
-        const file = event.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = e => {
-          preview.src = e.target.result;
-          uploadedImageSrc = e.target.result;
-          uploadModal.querySelector('.modal-content').scrollTop = 0;
-        };
-        reader.readAsDataURL(file);
-      });
-
-      document.getElementById("uploadBtn").addEventListener("click", () => {
-        if (uploadedImageSrc) {
-          const newImg = document.createElement("img");
-          newImg.src = uploadedImageSrc;
-          newImg.alt = "Lucrare nouă";
-          newImg.className = "uploaded-img";
-          imageGallery.insertBefore(newImg, imageGallery.firstChild);
-          uploadModal.style.display = "none";
-          fileInput.value = "";
-          preview.src = "";
-          uploadedImageSrc = "";
-        } else {
-          alert("Selectează o imagine înainte de a încărca!");
-        }
-      });
-
-      /* ====== DARK/LIGHT THEME ====== */
-      const themeBtn = document.querySelector('.circle-btn');
-      themeBtn.addEventListener('click', () => {
-        const body = document.body;
-        if (body.getAttribute("data-theme") === "light") {
-          body.setAttribute("data-theme", "dark");
-          localStorage.setItem("theme", "dark");
-        } else {
-          body.setAttribute("data-theme", "light");
-          localStorage.setItem("theme", "light");
-        }
-      });
-
-      const savedTheme = localStorage.getItem("theme");
-      if (savedTheme) {
-        document.body.setAttribute("data-theme", savedTheme);
-      } else {
-        document.body.setAttribute("data-theme", "light");
-      }
-    });
-  </script>
-
+<script src="app.js"></script>
 </body>
 </html>

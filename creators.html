@@ -118,9 +118,7 @@
     </ul>
     <a class="circle-btn"></a>
   </nav>
-
-  <!-- ======= Panou cu detalii ======= -->
-  <div class="info-panel" id="infoPanel">
+    <div class="info-panel" id="infoPanel">
     <span class="close-info" id="closeInfo">&times;</span>
     <div class="info-content">
       <img id="infoImage" src="" alt="Artwork" />
@@ -130,92 +128,8 @@
       </div>
     </div>
   </div>
+<section class="creators-images" id="creatorsImages"></section>
 
-  <section class="creators-images">
-    <img src="Imag/OIP.webp" alt="Artwork 20" class="img20" />
-    <img src="Imag/Frida-Kahlo.jpg" alt="Artwork 21" class="img21" />
-    <img src="Imag/Freud-Lucian.jpg" alt="Artwork 22" class="img22" />
-    <img src="Imag/Paula-Modersohn.webp" alt="Artwork 23" class="img23" />
-  </section>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const images = document.querySelectorAll(".creators-images img");
-      const infoPanel = document.getElementById("infoPanel");
-      const infoImage = document.getElementById("infoImage");
-      const artTitle = document.getElementById("artTitle");
-      const artDescription = document.getElementById("artDescription");
-      const closeInfo = document.getElementById("closeInfo");
-
-      const artworksInfo = {
-        "OIP.webp": {
-          title: "Vincent van Gogh",
-          description:
-            "Pictor post-impresionist olandez, cunoscut pentru culorile intense și emoția din lucrările sale. A transformat durerea interioară în artă plină de viață și sensibilitate.",
-        },
-        "Frida-Kahlo.jpg": {
-          title: "Frida Kahlo",
-          description:
-            "Pictoriță mexicană, cunoscută pentru autoportretele sale profunde și simbolice. Lucrările sale explorează identitatea, durerea și natura umană.",
-        },
-        "Freud-Lucian.jpg": {
-          title: "Lucian Freud",
-          description:
-            "Pictor britanic, cunoscut pentru portretele sale intense și explorarea psihologiei umane. Lucrările sale adesea dezvăluie vulnerabilitatea subiecților.",
-        },
-        "Paula-Modersohn.webp": {
-          title: "Paula Modersohn-Becker",
-          description:
-            "Pictoriță germană, una dintre primele femei care a pictat nuduri feminine. Lucrările sale sunt caracterizate de simplitate și o paletă de culori calde.",
-        },
-      };
-
-      images.forEach((img) => {
-        img.addEventListener("click", () => {
-          const src = img.getAttribute("src");
-          infoImage.src = src;
-
-          const filename = src.split("/").pop();
-          const info = artworksInfo[filename];
-          artTitle.textContent = info ? info.title : "Lucrare necunoscută";
-          artDescription.textContent = info
-            ? info.description
-            : "Descriere indisponibilă.";
-
-          infoPanel.style.display = "block";
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        });
-      });
-
-      closeInfo.addEventListener("click", () => {
-        infoPanel.style.display = "none";
-      });
-
-      /* ====================================== */
-      /* =========== DARK/LIGHT THEME ========= */
-      /* ====================================== */
-
-      const themeBtn = document.querySelector('.circle-btn');
-
-      themeBtn.addEventListener('click', () => {
-        const body = document.body;
-
-        if (body.getAttribute("data-theme") === "light") {
-          body.setAttribute("data-theme", "dark");
-          localStorage.setItem("theme", "dark");
-        } else {
-          body.setAttribute("data-theme", "light");
-          localStorage.setItem("theme", "light");
-        }
-      });
-
-      // Aplicăm tema salvată anterior
-      const savedTheme = localStorage.getItem("theme");
-      if (savedTheme) {
-        document.body.setAttribute("data-theme", savedTheme);
-      }
-
-    });
-  </script>
+    <script src="app.js"></script>
 </body>
 </html>
