@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  /* ========== ELEMENTE PRINCIPALE ========== */
   const container = document.getElementById("trendingImages");
 
   const modal = document.getElementById('commentModal');
@@ -12,7 +11,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const searchInput = document.getElementById('searchInput');
   const themeBtn = document.querySelector('.circle-btn');
 
-  /* ====== CREATORS – INFO PANEL ====== */
   const infoPanel = document.getElementById("infoPanel");
   const infoImage = document.getElementById("infoImage");
   const artTitle = document.getElementById("artTitle");
@@ -22,7 +20,6 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentImageSrc = "";
   let comments = {};
 
-  /* ========== DATE IMAGINI ========== */
   const trendingImages = [
     { src: "Imag/Art1.jpg", alt: "Artwork 1", class: "img1" },
     { src: "Imag/Art2.jpg", alt: "Artwork 2", class: "img2" },
@@ -51,7 +48,6 @@ document.addEventListener("DOMContentLoaded", () => {
     { src: "Imag/Art19.jpg", alt: "Artwork 19", class: "img19" }
   ];
 
-  /* ====== DATE CREATORS (MODIFICAT) ====== */
   const creatorsImagesData = [
     {
       src: "Imag/OIP.webp",
@@ -101,7 +97,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* ========== ÎNCĂRCARE IMAGINI ========== */
   if (container) {
     const page = container.dataset.page;
     let imagesToLoad = [];
@@ -121,7 +116,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let images = document.querySelectorAll(".trending-images img");
 
-  /* ========== SEARCH ========== */
   if (searchInput) {
     searchInput.addEventListener("keyup", () => {
       const filter = searchInput.value.toLowerCase();
@@ -132,7 +126,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* ========== COMENTARII ========== */
   if (modal && selectedImage) {
     images.forEach(img => {
       img.addEventListener("click", () => {
@@ -187,7 +180,6 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 
-  /* ========== DARK / LIGHT MODE ========== */
   if (themeBtn) {
     themeBtn.onclick = () => {
       const theme =
@@ -207,12 +199,10 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 document.addEventListener("DOMContentLoaded", () => {
 
-  /* ================= ELEMENTE GENERALE ================= */
   const container = document.getElementById("trendingImages");
   const searchInput = document.getElementById("searchInput");
   const themeBtn = document.querySelector(".circle-btn");
 
-  /* ================= SISTEM COMENTARII ================= */
   const modal = document.getElementById("commentModal");
   const selectedImage = document.getElementById("selectedImage");
   const closeModal = document.getElementById("closeModal");
@@ -223,7 +213,6 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentImageSrc = "";
   let comments = {};
 
-  /* ================= CLICK PE IMAGINE ================= */
   if (container) {
     container.addEventListener("click", (e) => {
       if (e.target.tagName === "IMG") {
@@ -269,7 +258,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* ================= SEARCH ================= */
   if (searchInput && container) {
     searchInput.addEventListener("keyup", () => {
       const filter = searchInput.value.toLowerCase();
@@ -282,7 +270,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* ================= UPLOAD IMAGINE ================= */
   const openUpload = document.getElementById("openUpload");
   const uploadModal = document.getElementById("uploadModal");
   const closeUpload = document.getElementById("closeUpload");
@@ -341,7 +328,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* ================= DARK / LIGHT MODE ================= */
   if (themeBtn) {
     themeBtn.onclick = () => {
       const theme =

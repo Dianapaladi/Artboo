@@ -7,10 +7,8 @@
   <title>ArtBook</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    /* ====== FONT IMPORTS ====== */
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Raleway:wght@400;600&display=swap');
 
-    /* ====== GLOBAL STYLE ====== */
     body {
       margin: 0;
       padding: 0;
@@ -18,7 +16,6 @@
       font-family: 'Raleway', sans-serif;
     }
 
-    /* ====== NAVBAR ====== */
     .main-nav {
       background-color: #441851;
       color: white;
@@ -29,7 +26,6 @@
       position: relative;
     }
 
-    /* ====== LOGO ====== */
     .logo {
       font-family: 'Playfair Display', serif;
       font-size: 34px;
@@ -37,7 +33,6 @@
       letter-spacing: 1px;
     }
 
-    /* ====== SEARCH BOX ====== */
     .search-container {
       position: absolute;
       left: 50%;
@@ -61,7 +56,6 @@
       width: 250px;
     }
 
-    /* ====== BUTON CERC MARE ÎN DREAPTA BARA NAV ====== */
     .circle-btn {
       position: absolute;
       top: 50%;
@@ -82,7 +76,6 @@
       cursor: pointer;
     }
 
-    /* ====== NAV LINKS ====== */
     .nav-links {
       list-style: none;
       display: flex;
@@ -95,7 +88,6 @@
       transform: translateX(-50%);
     }
 
-    /* ====== NAV ITEMS ====== */
     .nav-links a {
       text-decoration: none;
       color: white;
@@ -106,24 +98,21 @@
       transition: background-color 0.3s ease, color 0.3s ease;
     }
 
-    /* ====== ACTIVE LINK ====== */
     .nav-links a.active {
       background-color: #fff;
       color: #441851;
     }
 
-    /* ====== HOVER EFFECT ====== */
     .nav-links a:hover {
       opacity: 0.9;
     }
 
-    /* ====== TRENDING IMAGES ====== */
     .trending-images {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 20px;
-      margin-top: 160px;
+      margin-top: 30px;
     }
 
     .trending-images img {
@@ -133,12 +122,10 @@
       transition: border-color 0.3s ease;
     }
 
-    /* ====== BORDER ON HOVER ====== */
     .trending-images img:hover {
       border-color: white;
     }
 
-    /* ====== COMMENT MODAL ====== */
     .comment-modal {
       display: none;
       position: fixed;
@@ -150,7 +137,6 @@
       z-index: 1000;
     }
 
-    /* ====== CONTAINER ====== */
     .comment-container {
       background-color: white;
       border-radius: 20px;
@@ -163,13 +149,11 @@
       animation: fadeIn 0.4s ease;
     }
 
-    /* ====== ANIMATION ====== */
     @keyframes fadeIn {
       from {opacity: 0; transform: scale(0.95);}
       to {opacity: 1; transform: scale(1);}
     }
 
-    /* ====== CLOSE BUTTON ====== */
     .close-btn {
       position: absolute;
       top: 15px;
@@ -181,7 +165,6 @@
     }
     .close-btn:hover { color: #9b59b6; }
 
-    /* ====== IMAGE (STÂNGA) ====== */
     .comment-left {
       flex: 1;
       background-color: #f0dafa;
@@ -223,12 +206,11 @@
       background: white;
       padding: 8px 12px;
       margin-bottom: 8px;
-      border-radius: 10px;
+      border-radius: 100px;
       color: #441851;
       border: 1px solid #e0c6f0;
     }
 
-    /* ====== TEXTAREA ȘI BUTON ====== */
     #commentInput {
       border-radius: 10px;
       border: 1px solid #c9a4e2;
@@ -253,7 +235,6 @@
       background-color: #6a279a;
     }
 
-    /* ====== THEME: DARK ====== */
     body[data-theme="dark"] {
       background-color: #1e1e1e;
       color: white;
@@ -337,7 +318,6 @@
       background-color: #777;
     }
 
-    /* ====== DARK MODE pentru plus-button și modal upload ====== */
     body[data-theme="dark"] .plus-button {
       background-color: #555;
       color: #fff;
@@ -374,7 +354,6 @@
       color: #fff;
     }
 
-    /* ====== Meniu de încărcare ====== */
     .share-section {
       background-color: #734781;
       text-align: center;
@@ -541,7 +520,6 @@
 </head>
 <body>
 
-  <!-- ====== Bara de navigare ====== -->
   <nav class="main-nav">
     <div class="logo">ArtBook</div>
     <div class="search-container">
@@ -556,7 +534,6 @@
     <a class="circle-btn"></a>
   </nav>
 
-  <!-- ====== Meniul de încărcare sub bara ====== -->
   <section class="share-section">
     <h2>Împărtășește cu lucrările tale</h2>
     <div class="upload-container">
@@ -564,10 +541,8 @@
     </div>
   </section>
 
-  <!-- ====== Secțiunea cu imagini ====== -->
 <section class="trending-images" id="trendingImages" data-page="latest"></section>
 
-  <!-- ====== Fereastra de comentarii ====== -->
   <div class="comment-modal" id="commentModal">
     <div class="comment-container">
       <span class="close-btn" id="closeModal">&times;</span>
@@ -586,25 +561,49 @@
     </div>
   </div>
 
-  <!-- ====== Fereastra de încărcare imagine ====== -->
-  <div id="uploadModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="uploadTitle">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 id="uploadTitle">Alege o imagine pentru a o încărca</h3>
-        <button class="close-upload" id="closeUpload" aria-label="Close">&times;</button>
-      </div>
+ <div id="uploadModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="uploadTitle">
+  <div class="modal-content">
 
-      <label class="file-input" for="fileInput">Alege fișier
-        <input type="file" id="fileInput" accept="image/*">
+    <div class="modal-header">
+      <h3 id="uploadTitle">Încarcă o lucrare nouă</h3>
+      <button class="close-upload" id="closeUpload" type="button" aria-label="Închide">&times;</button>
+    </div>
+
+    <form id="uploadForm">
+
+      <label class="file-input" for="fileInput">
+        Selectează imaginea
+        <input type="file" id="fileInput" name="image" accept="image/*" required>
       </label>
 
-      <img id="preview" src="" alt="Preview">
+      <input 
+        type="text" 
+        id="imageTitle" 
+        name="title" 
+        placeholder="Titlul lucrării" 
+        maxlength="100"
+        required
+      >
+
+      <textarea 
+        id="imageDescription" 
+        name="description" 
+        placeholder="Descriere (opțional)" 
+        rows="3"
+        maxlength="300"
+      ></textarea>
+
+      <img id="preview" src="" alt="Previzualizare imagine">
 
       <div class="upload-actions">
-        <button class="upload-btn" id="uploadBtn">Încarcă imaginea</button>
+        <button type="button" class="upload-btn" id="cancelUpload">Anulează</button>
+        <button type="submit" class="upload-btn" id="uploadBtn">Publică</button>
       </div>
-    </div>
+
+    </form>
+
   </div>
+</div>
 
 <script src="app.js"></script>
 </body>
