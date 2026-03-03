@@ -1,6 +1,6 @@
-/* ====== FONT IMPORTS ====== */
+
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Raleway:wght@400;600&display=swap');
-/* ====== GLOBAL STYLE ====== */
+
 body {
   margin: 0;
   padding: 0;
@@ -8,7 +8,6 @@ body {
   font-family: 'Raleway', sans-serif;
 }
 
-/* ====== NAVBAR ====== */
 .main-nav {
   background-color: #441851;
   color: white;
@@ -19,7 +18,6 @@ body {
   position: relative;
 }
 
-/* ====== LOGO ====== */
 .logo {
   font-family: 'Playfair Display', serif;
   font-size: 34px;
@@ -27,7 +25,6 @@ body {
   letter-spacing: 1px;
 }
 
-/* ====== SEARCH BOX ====== */
 .search-container {
   position: absolute;
   left: 50%;
@@ -71,7 +68,6 @@ body {
   cursor: pointer;
 }
 
-/* ====== NAV LINKS ====== */
 .nav-links {
   list-style: none;
   display: flex;
@@ -85,7 +81,6 @@ body {
   transform: translateX(-50%);
 }
 
-/* ====== NAV ITEMS ====== */
 .nav-links a {
   text-decoration: none;
   color: white;
@@ -96,18 +91,15 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* ====== ACTIVE LINK ====== */
 .nav-links a.active {
   background-color: #fff;
   color: #441851;
 }
 
-/* ====== HOVER EFFECT ====== */
 .nav-links a:hover {
   opacity: 0.9;
 }
 
-/* ====== TRENDING IMAGES ====== */
 .trending-images {
   display: flex;
   flex-wrap: wrap;
@@ -123,12 +115,10 @@ body {
   transition: border-color 0.3s ease;
 }
 
-/* ====== BORDER ON HOVER ====== */
 .trending-images img:hover {
   border-color: white;
 }
 
-/* ====== COMMENT MODAL ====== */
 .comment-modal {
   display: none;
   position: fixed;
@@ -140,7 +130,6 @@ body {
   z-index: 1000;
 }
 
-/* ====== CONTAINER ====== */
 .comment-container {
   background-color: white;
   border-radius: 20px;
@@ -153,13 +142,11 @@ body {
   animation: fadeIn 0.4s ease;
 }
 
-/* ====== ANIMATION ====== */
 @keyframes fadeIn {
   from {opacity: 0; transform: scale(0.95);}
   to {opacity: 1; transform: scale(1);}
 }
 
-/* ====== CLOSE BUTTON ====== */
 .close-btn {
   position: absolute;
   top: 15px;
@@ -171,7 +158,6 @@ body {
 }
 .close-btn:hover { color: #9b59b6; }
 
-/* ====== IMAGE (STÂNGA) ====== */
 .comment-left {
   flex: 1;
   background-color: #f0dafa;
@@ -186,7 +172,6 @@ body {
   object-fit: cover;
 }
 
-/* ====== COMENTARII (DREAPTA) ====== */
 .comment-right {
   flex: 1;
   padding: 25px;
@@ -218,7 +203,6 @@ body {
   border: 1px solid #e0c6f0;
 }
 
-/* ====== TEXTAREA ȘI BUTON ====== */
 #commentInput {
   border-radius: 10px;
   border: 1px solid #c9a4e2;
@@ -242,28 +226,24 @@ body {
 .submit-comment:hover {
   background-color: #6a279a;
 }
-/* ====== THEME: DARK ====== */
+
 body[data-theme="dark"] {
   background-color: #000000;
   color: rgb(255, 255, 255);
 }
 
-/* navbar */
 body[data-theme="dark"] .main-nav {
   background-color: #000000;
 }
 
-/* logo */
 body[data-theme="dark"] .logo {
   color: #ffffff;
 }
 
-/* butonul cerc */
 body[data-theme="dark"] .circle-btn {
   background-color: #282727;
 }
 
-/* linkurile */
 body[data-theme="dark"] .nav-links a {
   background-color: #222;
   color: #fff;
@@ -274,23 +254,19 @@ body[data-theme="dark"] .nav-links a.active {
   color: #222;
 }
 
-/* hover */
 body[data-theme="dark"] .nav-links a:hover {
   opacity: 0.8;
 }
 
-/* search bar */
 body[data-theme="dark"] .search-container input {
   background-color: #333;
   color: white;
 }
 
-/* borduri imagini */
 body[data-theme="dark"] .trending-images img:hover {
   border-color: #bbb;
 }
 
-/* fereastra de comentarii */
 body[data-theme="dark"] .comment-modal {
   background: rgba(0,0,0,0.85);
 }
@@ -334,7 +310,6 @@ body[data-theme="dark"] .submit-comment:hover {
   background-color: #777;
 }
 
-/* ===== THEME TOGGLE BUTTON ===== */
 .circle-btn {
   position: absolute;
   top: 50%;
@@ -348,7 +323,6 @@ body[data-theme="dark"] .submit-comment:hover {
   transition: background-color 0.3s ease;
 }
 
-/* ICONUL */
 .circle-btn::before {
   content: "☀";
   font-size: 35px;
@@ -362,12 +336,10 @@ body[data-theme="dark"] .submit-comment:hover {
   transition: transform 0.3s ease, color 0.3s ease;
 }
 
-/* HOVER */
 .circle-btn:hover {
   transform: translateY(-50%) scale(1.1);
 }
 
-/* ===== DARK MODE ===== */
 body[data-theme="dark"] .circle-btn {
   background-color: #333;
 }
@@ -375,4 +347,175 @@ body[data-theme="dark"] .circle-btn {
 body[data-theme="dark"] .circle-btn::before {
   content: "🌙";
   color: #f5f3ce;
+}
+
+#imageTitle {
+  width: 70%;
+  margin: 0 auto;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid #c9a4e2;
+  font-family: 'Raleway', sans-serif;
+  font-size: 14px;
+  outline: none;
+  transition: 0.3s;
+  display: block;
+  text-align: center;
+}
+
+#imageTitle:focus {
+  border-color: #734781;
+  box-shadow: 0 0 0 2px rgba(115,71,129,0.2);
+}
+
+.upload-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+#uploadBtn {
+  width: 60%;
+  padding: 12px 12;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  font-size: 15px;
+  background-color: #441851;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#uploadBtn:hover {
+  background-color: #6a279a;
+}
+
+body[data-theme="dark"] #imageTitle {
+  background: #333;
+  color: white;
+  border: 1px solid #555;
+}
+
+body[data-theme="dark"] #uploadBtn {
+  background-color: #734781;
+}
+
+#uploadForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+} 
+
+.file-input {
+  width: 60%;
+  background: white;
+  border: 2px dashed #a87bc7;
+  padding: 15px;
+  border-radius: 15px;
+  text-align: center;
+  cursor: pointer;
+  font-weight: 600;
+  color: #441851;
+  transition: 0.3s;
+}
+
+#deleteImageBtn {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  font-weight: 100;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: 0px; 
+}
+
+#deleteImageBtn:hover {
+  background-color: #c0392b; 
+}
+
+.upload-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+  width: 100%; 
+  margin-top: 15px;
+  gap: 10px; 
+}
+
+#deleteImageBtn, #uploadBtn {
+  padding: 8px 16px; 
+  font-size: 14px;   
+  border-radius: 8px;
+  min-width: 120px; 
+}
+
+#deleteImageBtn {
+  background-color: #e74c3c;
+  flex: 0 0 auto; 
+}
+
+#deleteImageBtn:hover {
+  background-color: #c0392b;
+}
+
+#uploadBtn {
+  background-color: #441851;
+  flex: 1; 
+}
+
+#uploadBtn:hover {
+  background-color: #6a279a;
+}
+
+body[data-theme="dark"] #deleteImageBtn {
+  background-color: #a93226;
+}
+
+body[data-theme="dark"] #deleteImageBtn:hover {
+  background-color: #922b21;
+}
+
+body[data-theme="dark"] #uploadBtn {
+  background-color: #734781;
+}
+
+body[data-theme="dark"] #uploadBtn:hover {
+  background-color: #6a279a;
+}
+
+#deleteImageBtn {
+  background-color: #e74c3c;
+}
+
+#deleteImageBtn:hover {
+  background-color: #c0392b;
+}
+
+body[data-theme="dark"] #deleteImageBtn {
+  background-color: #a93226;
+}
+
+body[data-theme="dark"] #deleteImageBtn:hover {
+  background-color: #922b21;
+}
+
+body[data-theme="dark"] #uploadBtn {
+  background-color: #734781;
+}
+
+body[data-theme="dark"] #uploadBtn:hover {
+  background-color: #6a279a;
+}
+
+body[data-theme="dark"] #deleteImageBtn {
+  background-color: #a93226; 
+  color: white;
+}
+
+body[data-theme="dark"] #deleteImageBtn:hover {
+  background-color: #922b21; 
 }

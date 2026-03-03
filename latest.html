@@ -179,7 +179,6 @@
       object-fit: cover;
     }
 
-    /* ====== COMENTARII (DREAPTA) ====== */
     .comment-right {
       flex: 1;
       padding: 25px;
@@ -556,6 +555,7 @@
         <div class="comments-list" id="commentsList"></div>
 
         <textarea id="commentInput" placeholder="Scrie un comentariu..." rows="4"></textarea>
+        <button class="delete-image-btn" id="deleteImageBtn" style="display:none;">Șterge</button>
         <button class="submit-comment" id="submitComment">Trimite</button>
       </div>
     </div>
@@ -584,16 +584,7 @@
         maxlength="100"
         required
       >
-
-      <textarea 
-        id="imageDescription" 
-        name="description" 
-        placeholder="Descriere (opțional)" 
-        rows="3"
-        maxlength="300"
-      ></textarea>
-
-      <img id="preview" src="" alt="Previzualizare imagine">
+      <img id="preview" src="">
 
       <div class="upload-actions">
         <button type="button" class="upload-btn" id="cancelUpload">Anulează</button>
