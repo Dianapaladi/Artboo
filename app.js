@@ -16,12 +16,13 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentImageSrc = "";
   let comments = {};
 
-  function saveUploadedImages(imagesArray) {
-    localStorage.setItem("uploadedImages", JSON.stringify(imagesArray));
+  // Funcții pentru salvarea imaginilor pe pagină
+  function saveUploadedImages(imagesArray, page) {
+    localStorage.setItem(`uploadedImages_${page}`, JSON.stringify(imagesArray));
   }
 
-  function getUploadedImages() {
-    return JSON.parse(localStorage.getItem("uploadedImages")) || [];
+  function getUploadedImages(page) {
+    return JSON.parse(localStorage.getItem(`uploadedImages_${page}`)) || [];
   }
 
   const trendingImages = [
@@ -52,21 +53,37 @@ document.addEventListener("DOMContentLoaded", () => {
     { src: "Imag/Art19.jpg", alt: "Artwork 19" }
   ];
 
-const creatorsImagesData = [ { src: "Imag/OIP.webp", alt: "Vincent van Gogh", title: "Vincent van Gogh",
-   description: "Pictor post-impresionist olandez, cunoscut pentru culorile intense și emoția profundă." },
-  { src: "Imag/Frida-Kahlo.jpg", alt: "Frida Kahlo", title: "Frida Kahlo", description: "Pictoriță mexicană celebră pentru autoportretele sale simbolice." },
-  { src: "Imag/Freud-Lucian.jpg", alt: "Lucian Freud", title: "Lucian Freud", description: "Pictor britanic cunoscut pentru portrete realiste și intense." },
-  { src: "Imag/Paula-Modersohn.webp", alt: "Paula Modersohn-Becker", title: "Paula Modersohn-Becker", description: "Pictoriță germană, pionieră a artei moderne." } ];
-   const creatorsContainer = document.getElementById("creatorsImages");
-   if (creatorsContainer) { creatorsImagesData.forEach(data => { const img = document.createElement("img"); img.src = data.src;
-   img.alt = data.alt; creatorsContainer.appendChild(img);
-   img.addEventListener("click", () => { if (!infoPanel) return; infoImage.src = data.src; artTitle.textContent = data.title;
-   artDescription.textContent = data.description; infoPanel.style.display = "block"; window.scrollTo({ top: 0, behavior: "smooth" });
-   });
-   }); }
+  const creatorsImagesData = [
+    { src: "Imag/OIP.webp", alt: "Vincent van Gogh", title: "Vincent van Gogh",
+      description: "Pictor post-impresionist olandez, cunoscut pentru culorile intense și emoția profundă." },
+    { src: "Imag/Frida-Kahlo.jpg", alt: "Frida Kahlo", title: "Frida Kahlo", 
+      description: "Pictoriță mexicană celebră pentru autoportretele sale simbolice." },
+    { src: "Imag/Freud-Lucian.jpg", alt: "Lucian Freud", title: "Lucian Freud", 
+      description: "Pictor britanic cunoscut pentru portrete realiste și intense." },
+    { src: "Imag/Paula-Modersohn.webp", alt: "Paula Modersohn-Becker", title: "Paula Modersohn-Becker", 
+      description: "Pictoriță germană, pionieră a artei moderne." }
+  ];
+
+  const creatorsContainer = document.getElementById("creatorsImages");
+  if (creatorsContainer) {
+    creatorsImagesData.forEach(data => {
+      const img = document.createElement("img");
+      img.src = data.src;
+      img.alt = data.alt;
+      creatorsContainer.appendChild(img);
+      img.addEventListener("click", () => {
+        if (!infoPanel) return;
+        infoImage.src = data.src;
+        artTitle.textContent = data.title;
+        artDescription.textContent = data.description;
+        infoPanel.style.display = "block";
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    });
+  }
 
   if (container) {
-    const page = container.dataset.page;
+    const page = container.dataset.page; // Page curentă
     let imagesToLoad = [];
 
     if (page === "trending") imagesToLoad = trendingImages;
@@ -80,12 +97,13 @@ const creatorsImagesData = [ { src: "Imag/OIP.webp", alt: "Vincent van Gogh", ti
       container.appendChild(img);
     });
 
-    const savedUploads = getUploadedImages();
-
-    savedUploads.forEach(src => {
+    // Încarcă imaginile încărcate anterior pentru pagina curentă
+    const savedUploads = getUploadedImages(page);
+    savedUploads.forEach(data => {
       const img = document.createElement("img");
-      img.src = src;
-      img.alt = "Lucrare nouă";
+      img.src = data.src;
+      img.alt = data.title;
+      img.dataset.title = data.title;
       img.className = "uploaded-img";
       container.prepend(img);
     });
@@ -116,7 +134,6 @@ const creatorsImagesData = [ { src: "Imag/OIP.webp", alt: "Vincent van Gogh", ti
 
   if (deleteImageBtn) {
     deleteImageBtn.onclick = () => {
-
       const confirmDelete = confirm("Sigur vrei să ștergi această imagine?");
       if (!confirmDelete) return;
 
@@ -127,9 +144,10 @@ const creatorsImagesData = [ { src: "Imag/OIP.webp", alt: "Vincent van Gogh", ti
         }
       });
 
-      let saved = getUploadedImages();
-      saved = saved.filter(src => src !== currentImageSrc);
-      saveUploadedImages(saved);
+      const page = container.dataset.page;
+      let saved = getUploadedImages(page);
+      saved = saved.filter(data => data.src !== currentImageSrc);
+      saveUploadedImages(saved, page);
 
       commentModal.style.display = "none";
     };
@@ -173,8 +191,8 @@ const creatorsImagesData = [ { src: "Imag/OIP.webp", alt: "Vincent van Gogh", ti
       const images = container.querySelectorAll("img");
 
       images.forEach(img => {
-        img.style.display =
-          img.alt.toLowerCase().includes(filter) ? "block" : "none";
+        const title = img.dataset.title || img.alt;
+        img.style.display = title.toLowerCase().includes(filter) ? "block" : "none";
       });
     });
   }
@@ -194,6 +212,7 @@ const creatorsImagesData = [ { src: "Imag/OIP.webp", alt: "Vincent van Gogh", ti
     fileInput.value = "";
     preview.src = "";
     uploadedImageSrc = "";
+    document.getElementById("imageTitle").value = "";
   }
 
   if (openUpload) openUpload.onclick = () => uploadModal.style.display = "flex";
@@ -223,16 +242,20 @@ const creatorsImagesData = [ { src: "Imag/OIP.webp", alt: "Vincent van Gogh", ti
         return;
       }
 
+      const title = document.getElementById("imageTitle").value.trim() || "Lucrare nouă";
+
       const newImg = document.createElement("img");
       newImg.src = uploadedImageSrc;
-      newImg.alt = "Lucrare nouă";
+      newImg.alt = title;
+      newImg.dataset.title = title;
       newImg.className = "uploaded-img";
 
       container.prepend(newImg);
 
-      const existingImages = getUploadedImages();
-      existingImages.unshift(uploadedImageSrc);
-      saveUploadedImages(existingImages);
+      const page = container.dataset.page;
+      const existingImages = getUploadedImages(page);
+      existingImages.unshift({ src: uploadedImageSrc, title: title });
+      saveUploadedImages(existingImages, page);
 
       closeUploadModal();
     });
